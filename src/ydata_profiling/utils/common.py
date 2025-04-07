@@ -13,9 +13,9 @@ from pathlib import Path
 from typing import Mapping
 
 import pandas as pd
-import requests
 
 from ydata_profiling.version import __version__
+from security import safe_requests
 
 
 def update(d: dict, u: Mapping) -> dict:
@@ -131,7 +131,7 @@ def analytics_features(
                 f"&dbx={dbx}"
             )
 
-            requests.get(request_message)
+            safe_requests.get(request_message)
 
 
 def is_running_in_databricks():
