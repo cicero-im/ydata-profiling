@@ -2,9 +2,8 @@
 import zipfile
 from pathlib import Path
 
-from requests import get as get_file
-
 from ydata_profiling.utils.paths import get_data_path
+from security import safe_requests
 
 
 def cache_file(file_name: str, url: str) -> Path:
@@ -25,7 +24,7 @@ def cache_file(file_name: str, url: str) -> Path:
 
     # If not exists, download and create file
     if not file_path.exists():
-        response = get_file(url, allow_redirects=True)
+        response = safe_requests.get(url, allow_redirects=True)
         response.raise_for_status()
 
         file_path.write_bytes(response.content)
